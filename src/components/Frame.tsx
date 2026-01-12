@@ -83,8 +83,8 @@ export function Frame({
 				{/* Left border */}
 				<Box flexDirection="column">
 					{innerHeight !== undefined ? (
-						Array.from({ length: innerHeight }).map((_, i) => (
-							<Text key={i} color={color}>
+						Array.from({ length: innerHeight }).map((_, rowIdx) => (
+							<Text key={`left-${rowIdx}`} color={color}>
 								{chars.v}
 							</Text>
 						))
@@ -101,8 +101,8 @@ export function Frame({
 				{/* Right border */}
 				<Box flexDirection="column">
 					{innerHeight !== undefined ? (
-						Array.from({ length: innerHeight }).map((_, i) => (
-							<Text key={i} color={color}>
+						Array.from({ length: innerHeight }).map((_, rowIdx) => (
+							<Text key={`right-${rowIdx}`} color={color}>
 								{chars.v}
 							</Text>
 						))
@@ -115,8 +115,8 @@ export function Frame({
 				{shadow && (
 					<Box flexDirection="column" marginLeft={0}>
 						{innerHeight !== undefined ? (
-							Array.from({ length: innerHeight }).map((_, i) => (
-								<Text key={i} color={PALETTE.dim}>
+							Array.from({ length: innerHeight }).map((_, rowIdx) => (
+								<Text key={`shadow-${rowIdx}`} color={PALETTE.dim}>
 									{CHARS.blocks.medium}
 								</Text>
 							))

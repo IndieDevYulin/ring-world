@@ -45,7 +45,7 @@ export function Ring({
 }: RingProps) {
 	const isControlled = controlledIndex !== undefined;
 
-	const { index: internalIndex, setIndex } = useRingNav(items.length, {
+	const { index: internalIndex } = useRingNav(items.length, {
 		onSelect: (idx) => onSelect?.(items[idx], idx),
 		onBack,
 	});
@@ -94,7 +94,7 @@ export function Ring({
 
 	// Render a single ring item with depth effects
 	const renderItem = (slot: (typeof visibleSlots)[0]) => {
-		const { item, depth, offset, index } = slot;
+		const { item, depth, offset } = slot;
 		const isSelected = depth === 0;
 
 		// Depth-based styling
@@ -139,16 +139,19 @@ export function Ring({
 
 		return items
 			.slice(0, maxDots)
-			.map((_, i) => {
-				const isActive = i === selectedPos % maxDots;
+			.map((_item, idx) => {
+				const isActive = idx === selectedPos % maxDots;
 				return (
-					<Text key={i} color={isActive ? PALETTE.accent : PALETTE.dim}>
+					<Text
+						key={`dot-${idx}`}
+						color={isActive ? PALETTE.accent : PALETTE.dim}
+					>
 						{isActive ? CHARS.nav.dot : CHARS.nav.ring}
 					</Text>
 				);
 			})
-			.reduce((acc, dot, i) => {
-				if (i > 0) acc.push(<Text key={`sp-${i}`}> </Text>);
+			.reduce((acc, dot, idx) => {
+				if (idx > 0) acc.push(<Text key={`sp-${idx}`}> </Text>);
 				acc.push(dot);
 				return acc;
 			}, [] as React.ReactNode[]);
@@ -223,7 +226,7 @@ export function MiniRing({
 	onChange,
 	width = 40,
 }: MiniRingProps) {
-	const { index, setIndex } = useRingNav(items.length, {
+	const { index } = useRingNav(items.length, {
 		onSelect: (idx) => onChange?.(idx),
 	});
 
@@ -280,7 +283,7 @@ export function VerticalRing({
 	width = 30,
 	maxVisible = 7,
 }: VerticalRingProps) {
-	const { index, setIndex } = useRingNav(items.length, {
+	const { index } = useRingNav(items.length, {
 		onSelect: (idx) => onSelect?.(items[idx], idx),
 	});
 
@@ -315,7 +318,7 @@ export function VerticalRing({
 
 	return (
 		<Box flexDirection="column" width={width}>
-			{visibleItems.map(({ item, distance, actualIndex }, i) => {
+			{visibleItems.map(({ item, distance }, _idx) => {
 				const isSelected = distance === 0;
 				const color =
 					distance === 0

@@ -219,6 +219,7 @@ function SettingsView({ onBack }: ViewProps) {
 					<VerticalRing
 						items={settingsItems}
 						onSelect={(item) => setSelected(item.id)}
+						onBack={onBack}
 						width={30}
 					/>
 				</Box>

@@ -339,10 +339,12 @@ function Breadcrumb({ path, root }: BreadcrumbProps) {
 
 	return (
 		<Row>
-			{parts.map((part, i) => (
-				<React.Fragment key={i}>
-					{i > 0 && <Text color={PALETTE.frame}> {CHARS.nav.arrow} </Text>}
-					<Text color={i === parts.length - 1 ? PALETTE.fg : PALETTE.dim}>
+			{parts.map((part, partIdx) => (
+				<React.Fragment key={`part-${partIdx}`}>
+					{partIdx > 0 && (
+						<Text color={PALETTE.frame}> {CHARS.nav.arrow} </Text>
+					)}
+					<Text color={partIdx === parts.length - 1 ? PALETTE.fg : PALETTE.dim}>
 						{part}
 					</Text>
 				</React.Fragment>

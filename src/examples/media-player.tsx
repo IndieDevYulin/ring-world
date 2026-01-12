@@ -146,10 +146,10 @@ function Visualizer({ playing, width = 40, height = 5 }: VisualizerProps) {
 
 	return (
 		<Box flexDirection="column">
-			{Array.from({ length: height }).map((_, row) => {
-				const threshold = 1 - (row + 1) / height;
+			{Array.from({ length: height }).map((_, rowIdx) => {
+				const threshold = 1 - (rowIdx + 1) / height;
 				const line = bars
-					.map((value, _col) => {
+					.map((value, _colIdx) => {
 						if (value > threshold + 0.1) return "█";
 						if (value > threshold) return "▄";
 						if (value > threshold - 0.1) return "▁";
@@ -158,7 +158,10 @@ function Visualizer({ playing, width = 40, height = 5 }: VisualizerProps) {
 					.join("");
 
 				return (
-					<Text key={row} color={playing ? PALETTE.accent : PALETTE.dim}>
+					<Text
+						key={`viz-${rowIdx}`}
+						color={playing ? PALETTE.accent : PALETTE.dim}
+					>
 						{line}
 					</Text>
 				);
@@ -230,9 +233,9 @@ interface ControlBarProps {
 
 function _ControlBar({
 	playing,
-	onPlayPause,
-	onPrev,
-	onNext,
+	_onPlayPause,
+	_onPrev,
+	_onNext,
 }: ControlBarProps) {
 	return (
 		<Row justify="center" gap={3}>

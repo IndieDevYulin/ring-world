@@ -26,7 +26,8 @@ export function Progress({
 	color = PALETTE.accent,
 	animated = true,
 }: ProgressProps) {
-	const displayValue = animated ? useAnimation(value, 200) : value;
+	const animValue = useAnimation(value, 200);
+	const displayValue = animated ? animValue : value;
 	const fillWidth = Math.round((displayValue / 100) * width);
 	const emptyWidth = width - fillWidth;
 
@@ -284,8 +285,8 @@ export function ASCIIArt({
 
 	return (
 		<Box flexDirection="column">
-			{lines.map((line, i) => (
-				<Text key={i} color={color}>
+			{lines.map((line, lineIdx) => (
+				<Text key={`line-${lineIdx}`} color={color}>
 					{line}
 				</Text>
 			))}

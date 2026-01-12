@@ -137,10 +137,14 @@ export function Grid({ children, columns, gap = 1, cellWidth }: GridProps) {
 
 	return (
 		<Box flexDirection="column" gap={gap}>
-			{rows.map((row, i) => (
-				<Box key={i} gap={gap}>
-					{row.map((cell, j) => (
-						<Box key={j} width={cellWidth} flexGrow={cellWidth ? 0 : 1}>
+			{rows.map((row, rowIdx) => (
+				<Box key={`row-${rowIdx}`} gap={gap}>
+					{row.map((cell, colIdx) => (
+						<Box
+							key={`cell-${rowIdx}-${colIdx}`}
+							width={cellWidth}
+							flexGrow={cellWidth ? 0 : 1}
+						>
 							{cell}
 						</Box>
 					))}
@@ -184,12 +188,13 @@ export interface RowProps {
 }
 
 export function Row({ children, gap = 1, justify = "start" }: RowProps) {
-	const justifyContent = {
-		start: "flex-start",
-		center: "center",
-		end: "flex-end",
-		between: "space-between",
-	}[justify] as any;
+	const justifyContent: "flex-start" | "center" | "flex-end" | "space-between" =
+		{
+			start: "flex-start",
+			center: "center",
+			end: "flex-end",
+			between: "space-between",
+		}[justify];
 
 	return (
 		<Box gap={gap} justifyContent={justifyContent}>
@@ -294,8 +299,8 @@ export function Footer({ children, hints }: FooterProps) {
 	if (hints) {
 		return (
 			<Box justifyContent="center" gap={2}>
-				{hints.map(({ key, label }, i) => (
-					<Box key={i}>
+				{hints.map(({ key, label }, hintIdx) => (
+					<Box key={`hint-${hintIdx}`}>
 						<Text color={PALETTE.accent}>{key}</Text>
 						<Text color={PALETTE.dim}> {label}</Text>
 					</Box>
