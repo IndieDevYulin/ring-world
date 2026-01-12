@@ -1,13 +1,26 @@
 {
 	"name": "ring-world",
-	"module": "index.ts",
+	"version": "0.1.0",
+	"description": "A TUI library for tiny displays with 3D ring navigation",
 	"type": "module",
-	"private": true,
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "bun build src/index.ts --outdir dist --target node",
+		"demo": "bun run src/examples/demo.tsx",
+		"dev": "bun --watch src/examples/demo.tsx"
+	},
+	"dependencies": {
+		"ink": ">=5.0.0",
+		"react": ">=18.0.0"
+	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.3.11",
-		"@types/bun": "latest"
+		"@types/node": "^25.0.6",
+		"@types/react": "^18.3.3",
+		"typescript": "^5.5.0"
 	},
 	"peerDependencies": {
-		"typescript": "^5"
+		"ink": ">=5.0.0",
+		"react": ">=18.0.0"
 	}
 }
