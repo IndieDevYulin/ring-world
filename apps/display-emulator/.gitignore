@@ -1,0 +1,4 @@
+.next/
+bun.lock
+*.log
+.DS_Store
